@@ -23,4 +23,4 @@ jobs:
                   files: "**/*.{ts,tsx}"
 
             - name: Run Analysis
-              run: node scripts/analyze-vapor.js ${{ steps.files.outputs.all_changed_files }}
+              run: node scripts/analyze-vapor.cjs ${{ steps.files.outputs.all_changed_files }}
