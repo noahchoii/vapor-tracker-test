@@ -1,0 +1,26 @@
+name: Vapor Usage Tracker
+on:
+    push:
+        branches:
+            - dev
+            - main
+
+jobs:
+    track:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # 이전 히스토리 비교를 위해 필요
+
+            - name: Install dependencies
+              run: npm install ts-morph
+
+            - name: Get Changed Files
+              id: files
+              uses: tj-actions/changed-files@v44
+              with:
+                  files: "**/*.{ts,tsx}"
+
+            - name: Run Analysis
+              run: node scripts/analyze-vapor.js ${{ steps.files.outputs.all_changed_files }}
